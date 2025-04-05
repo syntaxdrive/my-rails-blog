@@ -1,0 +1,30 @@
+<p style="color: green"><%= notice %></p>
+<p><strong>Author:</strong> <%= @post.user.email %></p>
+<p><strong>Category:</strong> <%= @post.category %></p>
+<%= render @post %>
+
+<div>
+  <%= link_to "Edit this post", edit_post_path(@post) %> |
+  <%= link_to "Back to posts", posts_path %>
+
+  <%= button_to "Destroy this post", @post, method: :delete %>
+
+  <h3>Comments</h3>
+
+<%= form_with(model: [ @post, Comment.new ]) do |form| %>
+  <div class="field">
+    <%= form.label :body %><br>
+    <%= form.text_area :body, rows: 4 %>
+  </div>
+  <div class="actions">
+    <%= form.submit "Add Comment" %>
+  </div>
+<% end %>
+
+<h4>Existing Comments:</h4>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><strong><%= comment.user.email %>:</strong> <%= comment.body %></li>
+  <% end %>
+</ul>
+</div>
